@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Table, Column, DataType, Model } from "sequelize-typescript";
+import { Table, Column, DataType, Model, HasMany } from "sequelize-typescript";
+import { RecipientSocial } from "../../recipient-social/model/recipient-social.model";
 
 interface ISocialMediaCreationAttr {
     social_media: string;
@@ -38,4 +39,8 @@ export class SocialMedia extends Model<SocialMedia, ISocialMediaCreationAttr> {
         allowNull: false,
     })
     declare iconic_url: string;
+
+
+    @HasMany(() => RecipientSocial)
+    declare recipientSocial: RecipientSocial[];
 }
