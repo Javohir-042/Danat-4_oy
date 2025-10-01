@@ -7,6 +7,7 @@ import { SocialMediaModule } from './social_media/social_media.module';
 import { RecipientModule } from './recipient/recipient.module';
 import { RecipientSocialModule } from './recipient-social/recipient-social.module';
 import { CardsModule } from './cards/cards.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CardsModule } from './cards/cards.module';
       models: []
     }),
     AdminModule,
+    AuthModule,
     UserModule,
     SocialMediaModule,
     RecipientModule,

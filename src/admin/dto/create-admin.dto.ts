@@ -12,7 +12,7 @@ export class CreateAdminDto {
     full_name: string;
 
     @ApiProperty({
-        example: 'sobirqodirov@gmail.com',
+        example: 'javohirquromboyev933@gmail.com',
         description: 'Foydalanuvchi email'
     })
     @IsEmail({}, { message: "Email must be a valid email address" })
@@ -20,7 +20,7 @@ export class CreateAdminDto {
     email: string;
 
     @ApiProperty({
-        example: 'Sobir123!',
+        example: 'Javohir123!',
         description: 'Foydalanuvchi password'
     })
     @IsStrongPassword({}, { message: "Password must be stronger"})
