@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { Role } from "../../common/enum/admin.enum";
 
 export class CreateRecipientDto {
     @ApiProperty({
@@ -41,4 +42,13 @@ export class CreateRecipientDto {
     @IsString({ message: "address string bo'lishi kerak" })
     @IsNotEmpty({ message: "address bo'sh bo'lishi mumkin emas" })
     addres: string;
+
+    @ApiProperty({
+        example: Role.USER,
+        description: "Foydalanuvchi roli",
+        enum: Role,
+    })
+    @IsEnum(Role, { message: "Role ma'lumotlari mavjud emas" })
+    role: Role;
+
 }

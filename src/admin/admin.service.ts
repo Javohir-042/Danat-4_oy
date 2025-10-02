@@ -4,6 +4,7 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './model/admin.model';
 import { ResData } from '../lib/resDate';
 import { InjectModel } from '@nestjs/sequelize';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AdminService {
@@ -24,8 +25,12 @@ export class AdminService {
       throw new ConflictException("Email already exists");
     }
 
-    // Yangi admin yaratish
-    const newAdmin = await this.adminModel.create(createAdminDto);
+    const hashedPassword = await bcrypt.hash(password, 7)
+
+    const newAdmin = await this.adminModel.create({
+      ...createAdminDto,
+      password: hashedPassword
+    });
 
     return new ResData<Admin>("Admin create successFully", 201, newAdmin)
   }
@@ -46,7 +51,7 @@ export class AdminService {
 
   async update(id: number, updateAdminDto: UpdateAdminDto): Promise<ResData<Admin>> {
 
-    const { email } = updateAdminDto;
+    const { email, password } = updateAdminDto;
 
     const existsAdmin = await this.adminModel.findByPk(id)
     if (!existsAdmin) {
@@ -57,11 +62,20 @@ export class AdminService {
       throw new BadRequestException("Emailni o'zgartirish mumkin emas");
     }
 
+    let hashedPassword: string | undefined;
+    if (password) {
+      const bcrypt = await import('bcrypt')
+      hashedPassword = await bcrypt.hash(password, 7)
+    }
 
     const updateAdmin = await this.adminModel.update(
-      { ...updateAdminDto },
+      {
+        ...updateAdminDto,
+        ...(hashedPassword && { password: hashedPassword }) 
+      },
       { where: { id }, returning: true }
-    )
+    );
+
 
     return new ResData("Admin update by id ", 200, updateAdmin[1][0]);
   }

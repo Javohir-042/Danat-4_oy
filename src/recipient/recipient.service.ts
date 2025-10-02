@@ -14,37 +14,31 @@ export class RecipientService {
 
   async create(createRecipientDto: CreateRecipientDto): Promise<ResData<Recipient | null>> {
 
-    const { name, full_name, email, password, addres } = createRecipientDto
-
-    if (!name || !full_name || !email || !password || !addres) {
+    const { name, full_name, email, password, addres, role } = createRecipientDto
+    
+    if (!name || !full_name || !email || !password || !addres || !role) {
       throw new NotFoundException("Iltimos Barchasini kiriting")
     }
-
+    
     const existsName = await this.recipentModel.findOne({ where: { name } })
     if (existsName) {
       throw new ConflictException("Name already exists")
     }
-
+    
     const existsEmail = await this.recipentModel.findOne({ where: { email } })
     if (existsEmail) {
       throw new ConflictException("Email already exists")
     }
-
-    const hashedPassword = await bcrypt.hash(createRecipientDto.password, 7)
-
-    const newRecipirnt = await this.recipentModel.create({
-      name,
-      full_name,
-      email,
-      password: hashedPassword,
-      addres,
-    })
+    
+    console.log(name, full_name, email, password,addres, role)
+    const newRecipirnt = await this.recipentModel.create({ ...createRecipientDto})
 
     return new ResData<Recipient>('Recipient create successfully', 201, newRecipirnt)
   }
 
   async findAll(): Promise<ResData<Recipient[]>> {
     const recipient = await this.recipentModel.findAll()
+    console.log('dgdgdfg')
     return new ResData('Recipient successfully retrieved', 200, recipient)
   }
 

@@ -1,9 +1,8 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
-
+import { AuthGuard } from './common/guards/auth.guard';
 async function bootstrap() {
 
   const PORT = Number(process.env.PORT ?? 3000)
@@ -19,24 +18,20 @@ async function bootstrap() {
     }),
   )
 
-  const jwtAuthGuard = app.get(JwtAuthGuard);
-  app.useGlobalGuards(jwtAuthGuard)
+  const reflector = app.get(Reflector); 
   
+  app.useGlobalGuards(new AuthGuard(reflector));   
 
   const config = new DocumentBuilder()
     .setTitle('Donat Project')
     .setDescription('The Donat API description')
     .setVersion('1.0')
     .addTag('Nest, bacrypt, jwt, guard, swagger, validation')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        in: 'header'
-      },
-      'access-token'
-    )
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'Bearer',
+      in: 'Header',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

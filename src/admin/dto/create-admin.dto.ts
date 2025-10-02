@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
+import { Role } from "../../common/enum/admin.enum";
 
 export class CreateAdminDto {
 
@@ -44,5 +45,8 @@ export class CreateAdminDto {
     is_active: boolean;
 
 
-    // token: string;
+    @ApiProperty({ example: Role.ADMIN, enum: Role, required: false })
+    @IsEnum(Role)
+    @IsOptional()
+    role?: Role;
 }

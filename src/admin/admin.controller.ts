@@ -8,8 +8,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enum/admin.enum';
 
 @ApiTags("Admin - Foydalanuvchi")
-@ApiBearerAuth('access-token')
-@Roles("SUPERADMINx")
+@ApiBearerAuth()
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
@@ -21,8 +20,7 @@ export class AdminController {
     description: "Yangi qo'shilgan foydalanuvchi",
     type: Admin,
   })
-  @Roles(Role.ADMIN, Role.SUPERADMIN)
-  @ApiBearerAuth()
+  @Roles( Role.SUPERADMIN)
   @Post()
   create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);
@@ -39,7 +37,6 @@ export class AdminController {
     description: "foydalanuvchilar ro'yxati",
     type: [Admin],
   })
-  @ApiBearerAuth()
   @Get()
   findAll() {
     return this.adminService.findAll();
@@ -53,7 +50,6 @@ export class AdminController {
     description: "Topilgan foydalanuvchi",
     type: Admin,
   })
-  @ApiBearerAuth()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.adminService.findOne(+id);
@@ -66,19 +62,17 @@ export class AdminController {
     description: "Yangilangan foydalanuvchi",
     type: Admin,
   })
-  @ApiBearerAuth()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.adminService.update(+id, updateAdminDto);
   }
 
-  @Roles(Role.ADMIN, Role.SUPERADMIN)
+  @Roles( Role.SUPERADMIN)
   @ApiOperation({ summary: "Foydalanuvchini o'chirish" })
   @ApiResponse({
     status: 200,
     description: "O'chirish natijasi haqida xabar",
   })
-  @ApiBearerAuth()
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.adminService.remove(+id);

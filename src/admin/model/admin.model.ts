@@ -1,12 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Role } from "../../common/enum/admin.enum";
 
 interface IAdminCreateAttr {
     full_name: string,
     email: string,
     password: string,
     is_creator: boolean,
-    is_active: boolean
+    is_active: boolean,
+    role?: Role
 }
 
 @Table({ tableName: 'admin'})
@@ -78,4 +80,10 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
     declare is_active: boolean;
 
 
+    @Column({
+        type: DataType.ENUM(...Object.values(Role)),
+        allowNull: false,
+        defaultValue: Role.ADMIN,
+    })
+    declare role: Role;
 }

@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { RecipientSocial } from "../../recipient-social/model/recipient-social.model";
 import { Card } from "../../cards/model/card.model";
+import { Role } from "../../common/enum/admin.enum";
 
 interface IRecipientCreationAttr {
     name: string;
@@ -75,6 +76,19 @@ export class Recipient extends Model<Recipient, IRecipientCreationAttr> {
         allowNull: false,
     })
     declare addres: string;
+    
+
+    @ApiProperty({
+        example: "admin",
+        description: "Foydalanuvchi roli (admin yoki user kabi)",
+    })
+    @Column({
+        type: DataType.ENUM(...Object.values(Role)),
+        allowNull: false,
+    })
+    declare role: Role;
+
+
 
     @HasMany(() => RecipientSocial)
     declare recipientSocial: RecipientSocial[];
