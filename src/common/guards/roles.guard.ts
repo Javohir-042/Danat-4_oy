@@ -15,17 +15,20 @@ export class RolesGuard implements CanActivate {
             ctx.getClass(),
         ]).map(role => role.toUpperCase());
 
-        if (!roles || roles.includes('public') || roles.length === 0) {
+        if (!roles || roles.includes('PUBLIC')) {
             return true;
         }
 
-        if (
-            (req.user?.role && roles.includes(req.user.role)) || (roles.includes('ID') && req.user?.id === req.params.id)
-        ) {
+        if (req.user?.role && roles.includes(req.user.role.toUpperCase())) {
             return true;
         }
+
+        if (roles.includes('ID') && req.user?.id === +req.params.id) {
+            return true;
+        }
+
 
         // console.log(roles.includes('ID') && req.user?.id === req.params.id)
-        return true;
+        return false;
     }
 }

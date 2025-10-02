@@ -11,6 +11,7 @@ export class CreateUserDto {
     @IsNotEmpty({ message: "full_name must be required" })
     full_name: string;
 
+
     @ApiProperty({
         example: 'sobirqodirov@gmail.com',
         description: 'Foydalanuvchi email'
@@ -19,6 +20,7 @@ export class CreateUserDto {
     @IsNotEmpty({ message: "email must be required" })
     email: string;
 
+
     @ApiProperty({
         example: 'Sobir123!',
         description: 'Foydalanuvchi parol'
@@ -26,6 +28,7 @@ export class CreateUserDto {
     @IsStrongPassword({}, { message: "Password must be stronger" })
     @IsNotEmpty({ message: "password must be required" })
     password: string;
+
 
     @ApiProperty({
         example: '8600123412341234',
@@ -37,6 +40,7 @@ export class CreateUserDto {
     @IsNotEmpty({ message: "card_number must be required" })
     card_number: string;
 
+    
     @ApiProperty({
         example: true,
         description: 'Foydalanuvchi faolmi ?'

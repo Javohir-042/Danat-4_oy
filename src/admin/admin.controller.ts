@@ -6,8 +6,11 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { Admin } from './model/admin.model';
 import { Roles } from '../common/decorators/roles.decorator';
 import { Role } from '../common/enum/admin.enum';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { AuthGuard } from '../common/guards/auth.guard';
 
 @ApiTags("Admin - Foydalanuvchi")
+@UseGuards(AuthGuard, RolesGuard)
 @ApiBearerAuth()
 @Controller('admin')
 export class AdminController {
@@ -55,6 +58,7 @@ export class AdminController {
     return this.adminService.findOne(+id);
   }
 
+
   @Roles(Role.ADMIN, Role.SUPERADMIN)
   @ApiOperation({ summary: "Foydalanuvchini yangilash" })
   @ApiResponse({
@@ -66,6 +70,7 @@ export class AdminController {
   update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.adminService.update(+id, updateAdminDto);
   }
+
 
   @Roles( Role.SUPERADMIN)
   @ApiOperation({ summary: "Foydalanuvchini o'chirish" })

@@ -9,6 +9,7 @@ interface ISocialMediaCreationAttr {
 
 @Table({ tableName: "social_media" })
 export class SocialMedia extends Model<SocialMedia, ISocialMediaCreationAttr> {
+    
     @ApiProperty({
         example: 1,
         description: "Ijtimoiy tarmoq ID raqami",
@@ -20,6 +21,7 @@ export class SocialMedia extends Model<SocialMedia, ISocialMediaCreationAttr> {
     })
     declare id: number;
 
+
     @ApiProperty({
         example: "Instagram",
         description: "Ijtimoiy tarmoq nomi",
@@ -29,6 +31,7 @@ export class SocialMedia extends Model<SocialMedia, ISocialMediaCreationAttr> {
         allowNull: false,
     })
     declare social_media: string;
+
 
     @ApiProperty({
         example: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",

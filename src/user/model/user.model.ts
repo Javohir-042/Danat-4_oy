@@ -11,6 +11,7 @@ interface IUserCreationAttr {
 
 @Table({ tableName: "users" })
 export class User extends Model<User, IUserCreationAttr> {
+    
     @ApiProperty({
         example: 1,
         description: "Foydalanuvchi ID",
@@ -22,6 +23,7 @@ export class User extends Model<User, IUserCreationAttr> {
     })
     declare id: number;
 
+
     @ApiProperty({
         example: "Sobir Qodirov",
         description: "Foydalanuvchi to'liq ism-sharifi",
@@ -31,6 +33,7 @@ export class User extends Model<User, IUserCreationAttr> {
         allowNull: false,
     })
     declare full_name: string;
+
 
     @ApiProperty({
         example: "sobirqodirov@gmail.com",
@@ -43,6 +46,7 @@ export class User extends Model<User, IUserCreationAttr> {
     })
     declare email: string;
 
+
     @ApiProperty({
         example: "Sobir123!",
         description: "Foydalanuvchi paroli (hash bo'lib saqlanadi)",
@@ -52,6 +56,7 @@ export class User extends Model<User, IUserCreationAttr> {
         allowNull: false,
     })
     declare password: string;
+
 
     @ApiProperty({
         example: "8600123412341234",
@@ -63,6 +68,7 @@ export class User extends Model<User, IUserCreationAttr> {
         unique: true,
     })
     declare card_number: string;
+
 
     @ApiProperty({
         example: true,

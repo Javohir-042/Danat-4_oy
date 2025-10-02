@@ -11,7 +11,7 @@ export class CreateRecipientSocialDto {
     socialId: number;
 
     @ApiProperty({
-        example: 123,
+        example: 1,
         description: "Recipient ID"
     })
     @IsNotEmpty({ message: "recipientId is required" })

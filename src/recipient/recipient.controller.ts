@@ -44,7 +44,7 @@ export class RecipientController {
     return this.recipientService.findAll();
   }
 
-
+  
   @ApiOperation({
     summary: "Foydalanuvchi ro'yxatini by id orqali chiqarish"
   })

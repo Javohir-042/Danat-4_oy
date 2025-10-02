@@ -20,7 +20,7 @@ async function bootstrap() {
 
   const reflector = app.get(Reflector); 
   
-  app.useGlobalGuards(new AuthGuard(reflector));   
+  // app.useGlobalGuards(new AuthGuard(reflector));   
 
   const config = new DocumentBuilder()
     .setTitle('Donat Project')

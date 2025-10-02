@@ -38,7 +38,7 @@ export class RecipientService {
 
   async findAll(): Promise<ResData<Recipient[]>> {
     const recipient = await this.recipentModel.findAll()
-    console.log('dgdgdfg')
+    
     return new ResData('Recipient successfully retrieved', 200, recipient)
   }
 

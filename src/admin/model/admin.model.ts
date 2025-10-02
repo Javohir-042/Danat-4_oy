@@ -25,6 +25,7 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
     })
     declare id: number;
 
+
     @ApiProperty({
         example: 'Sardor Qodirov',
         description: `Foydalanuvchi to'liq ism- sharifi`
@@ -58,6 +59,7 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
     })
     declare password: string;
 
+
     @ApiProperty({
         example: true,
         description: 'Foydalanuvchi ijodkor ekanligi'
@@ -80,6 +82,10 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
     declare is_active: boolean;
 
 
+    @ApiProperty({
+        example: true,
+        description: `Foydalanuvchining roli`
+    })
     @Column({
         type: DataType.ENUM(...Object.values(Role)),
         allowNull: false,
