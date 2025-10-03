@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Column, DataType, Model, Table, ForeignKey, BelongsTo, HasMany } from "sequelize-typescript";
 import { Recipient } from "../../recipient/model/recipient.model";
 import { User } from "../../user/model/user.model";
+import { Payment } from "../../payments/model/payment.model";
 
 interface IDonateCreateAttr {
     recipient_id: number;
@@ -79,5 +80,9 @@ export class Donate extends Model<Donate, IDonateCreateAttr> {
         defaultValue: false,
     })
     declare is_AnonimPay: boolean;
+
+
+    @HasMany(() => Payment)
+    declare payment: Payment[];
     
 }

@@ -23,7 +23,7 @@ export class AdminController {
     description: "Yangi qo'shilgan foydalanuvchi",
     type: Admin,
   })
-  @Roles( Role.SUPERADMIN)
+  @Roles( Role.SUPERADMIN, Role.ADMIN)
   @Post()
   create(@Body() createAdminDto: CreateAdminDto) {
     return this.adminService.create(createAdminDto);

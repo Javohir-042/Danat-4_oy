@@ -1,5 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Donate } from "../../donate/model/donate.model";
+import { Order } from "../../order/model/order.model";
+import { Payment } from "../../payments/model/payment.model";
 
 interface IUserCreationAttr {
     full_name: string;
@@ -79,5 +82,15 @@ export class User extends Model<User, IUserCreationAttr> {
         defaultValue: true,
     })
     declare is_active: boolean;
+
+    @HasMany(() => Donate)
+    declare danate: Donate[];
+
+
+    @HasMany(() => Order)
+    declare order: Order[];
+
+    @HasMany(() => Payment)
+    declare payment: Payment
 
 }

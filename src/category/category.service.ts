@@ -30,7 +30,7 @@ export class CategoryService {
   }
 
   async findOne(id: number): Promise<ResData<Category>> {
-    const category = await this.categoryModel.findByPk(id)
+    const category = await this.categoryModel.findByPk(id, { include: { all: true } })
     if (!category) {
       throw new NotFoundException("Category not found")
     }

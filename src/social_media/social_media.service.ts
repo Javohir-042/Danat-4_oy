@@ -30,7 +30,7 @@ export class SocialMediaService {
   }
 
   async findOne(id: number): Promise<ResData<SocialMedia>> {
-    const social_mediId = await this.social_mediaModel.findByPk(id)
+    const social_mediId = await this.social_mediaModel.findByPk(id, { include: { all: true } })
     if (!social_mediId) {
       throw new NotFoundException('Social_mediaId not found')
     }
@@ -44,9 +44,14 @@ export class SocialMediaService {
       throw new NotFoundException('Social_mediId not found')
     }
 
-    const updated = await this.social_mediaModel.update({ ...updateSocialMediaDto }, { where: { id }, returning: true })
+    await this.social_mediaModel.update(
+      { ...updateSocialMediaDto },
+      { where: { id } }
+    );
 
-    return new ResData("Social_media update by id", 200, updated[1][0])
+    const updatedSocialMedia = await this.social_mediaModel.findByPk(id);
+    return new ResData("Social_media update by id", 200, updatedSocialMedia);
+
   }
 
   async remove(id: number){

@@ -3,6 +3,8 @@ import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 import { RecipientSocial } from "../../recipient-social/model/recipient-social.model";
 import { Card } from "../../cards/model/card.model";
 import { Role } from "../../common/enum/admin.enum";
+import { Donate } from "../../donate/model/donate.model";
+import { Shop } from "../../shop/model/shop.model";
 
 interface IRecipientCreationAttr {
     name: string;
@@ -95,4 +97,10 @@ export class Recipient extends Model<Recipient, IRecipientCreationAttr> {
 
     @HasMany(() => Card)
     declare card: Card[];
+
+    @HasMany(() => Donate)
+    declare donate: Donate[];
+
+    @HasMany(() => Shop)
+    declare shop: Shop[];
 }

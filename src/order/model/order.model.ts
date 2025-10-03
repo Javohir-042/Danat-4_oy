@@ -4,6 +4,7 @@ import { Column, DataType, Model, Table, ForeignKey, BelongsTo, HasMany } from "
 import { Shop } from "../../shop/model/shop.model";
 import { OrderStatus } from "../../common/enum/orderStatus.enum";
 import { User } from "../../user/model/user.model";
+import { Payment } from "../../payments/model/payment.model";
 
 interface IOrderCreateAttr {
     id?: number;
@@ -97,10 +98,6 @@ export class Order extends Model<Order, IOrderCreateAttr> {
     declare status: OrderStatus;
 
 
-    // @HasMany(() => Payments)
-    // declare payments: Payments[];
-
-
     @ApiProperty({
         example: new Date(),
         description: "Buyurtma yaratilgan sana"
@@ -121,4 +118,10 @@ export class Order extends Model<Order, IOrderCreateAttr> {
         defaultValue: DataType.NOW,
     })
     declare updatedAt: Date;
+
+
+
+    @HasMany(() => Payment)
+    declare payments: Payment[];
+
 }

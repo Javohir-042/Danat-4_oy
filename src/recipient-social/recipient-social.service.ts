@@ -44,7 +44,7 @@ export class RecipientSocialService {
   }
 
   async findOne(id: number): Promise<ResData<RecipientSocial>> {
-    const recipientSocialId = await this.recipientSocialModel.findByPk(id)
+    const recipientSocialId = await this.recipientSocialModel.findByPk(id, { include: { all: true } })
     if (!recipientSocialId) {
       throw new NotFoundException('Recipient-social not found')
     }

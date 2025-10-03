@@ -33,7 +33,7 @@ export class CardsService {
   }
 
   async findOne(id: number): Promise<ResData<Card>> {
-    const cards = await this.cardsModel.findByPk(id)
+    const cards = await this.cardsModel.findByPk(id, { include: { all: true } })
     if (!cards) {
       throw new NotFoundException('Cards not found')
     }
@@ -54,7 +54,7 @@ export class CardsService {
       throw new NotFoundException('Bunday recipientId topilmadi')
     }
 
-    const newCards = await this.cardsModel.update({...updateCardDto}, { where: { id }, returning: true })
+    const newCards = await this.cardsModel.update({ ...updateCardDto }, { where: { id }, returning: true })
 
     return new ResData('Cards update by id', 200, newCards[1][0])
   }

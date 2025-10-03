@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<ResData<User>> {
-    const user = await this.userModel.findByPk(id)
+    const user = await this.userModel.findByPk(id, { include: { all: true } })
     if (!user) {
       throw new NotFoundException('User not found')
     }

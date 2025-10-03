@@ -43,7 +43,7 @@ export class RecipientService {
   }
 
   async findOne(id: number): Promise<ResData<Recipient>> {
-    const recipient = await this.recipentModel.findByPk(id)
+    const recipient = await this.recipentModel.findByPk(id, { include: { all: true } })
     if (!recipient) {
       throw new NotFoundException("Recipient not found")
     }
@@ -56,7 +56,7 @@ export class RecipientService {
       throw new NotFoundException('Recipient not found')
     }
 
-    const { name, email, currentPassword, password } = updateRecipientDto
+    const { name, email } = updateRecipientDto
 
     if (email && email !== recipient.email) {
       throw new BadRequestException(`Email o'zgartirish mumkun emas`)
@@ -67,14 +67,6 @@ export class RecipientService {
       if (existsName && existsName.id !== id) {
         throw new BadRequestException('Bunday name mavjud')
       }
-    }
-
-    if (password && currentPassword) {
-      const verifyPassword = await bcrypt.compare(currentPassword, recipient.password);
-      if (!verifyPassword) {
-        throw new UnauthorizedException("Password noto'g'ri");
-      }
-      updateRecipientDto.password = await bcrypt.hash(password, 7);
     }
 
     const recipientd = await this.recipentModel.update(updateRecipientDto, { where: { id }, returning: true })

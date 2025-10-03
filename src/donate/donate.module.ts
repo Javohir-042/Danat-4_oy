@@ -5,9 +5,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Donate } from './model/donate.model';
 import { User } from '../user/model/user.model';
 import { Recipient } from '../recipient/model/recipient.model';
+import { Payment } from '../payments/model/payment.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Donate,User, Recipient])],
+  imports: [SequelizeModule.forFeature([Donate,User, Recipient,Payment])],
   controllers: [DonateController],
   providers: [DonateService],
 })

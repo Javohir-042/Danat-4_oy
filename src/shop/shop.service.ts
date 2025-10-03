@@ -52,7 +52,7 @@ export class ShopService {
     return new ResData("Shop retrieved by id", 200, shop);
   }
 
-  async update(id: number, updateShopDto: UpdateShopDto) {
+  async update(id: number, updateShopDto: UpdateShopDto): Promise<ResData<Shop>> {
     const shop = await this.shopModel.findByPk(id)
     if (!shop) {
       throw new NotFoundException("Shop not found")

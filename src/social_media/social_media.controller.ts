@@ -58,6 +58,7 @@ export class SocialMediaController {
     description: "O'zgartirildi",
     type: SocialMedia,
   })
+  @Roles(Role.SUPERADMIN, Role.ADMIN)
   @ApiBearerAuth()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSocialMediaDto: UpdateSocialMediaDto) {
@@ -70,6 +71,7 @@ export class SocialMediaController {
     description: "O'chirildi",
     type: SocialMedia,
   })
+  @Roles(Role.SUPERADMIN, Role.ADMIN)
   @ApiBearerAuth()
   @Delete(':id')
   remove(@Param('id') id: string) {
