@@ -71,7 +71,7 @@ export class AdminService {
     const updateAdmin = await this.adminModel.update(
       {
         ...updateAdminDto,
-        ...(hashedPassword && { password: hashedPassword }) 
+        ...(hashedPassword && { password: hashedPassword })
       },
       { where: { id }, returning: true }
     );

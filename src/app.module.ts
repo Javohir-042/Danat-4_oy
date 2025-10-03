@@ -8,6 +8,11 @@ import { RecipientModule } from './recipient/recipient.module';
 import { RecipientSocialModule } from './recipient-social/recipient-social.module';
 import { CardsModule } from './cards/cards.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoryModule } from './category/category.module';
+import { ShopModule } from './shop/shop.module';
+import { OrderModule } from './order/order.module';
+import { DonateModule } from './donate/donate.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -34,6 +39,11 @@ import { AuthModule } from './auth/auth.module';
     RecipientSocialModule,
     SocialMediaModule,
     UserModule,
+    CategoryModule,
+    ShopModule,
+    OrderModule,
+    DonateModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],
