@@ -29,6 +29,10 @@ export class AdminController {
     return this.adminService.create(createAdminDto);
   }
 
+  @Get("activate/:link")
+  activateAdmin(@Param("link") link: string) {
+    return this.adminService.activateAdmin(link);
+  }
 
 
   @Roles(Role.ADMIN, Role.SUPERADMIN)

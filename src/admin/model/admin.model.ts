@@ -92,4 +92,19 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
         defaultValue: Role.ADMIN,
     })
     declare role: Role;
+
+
+    
+
+    @Column({
+        type: DataType.STRING(2000),
+    })
+    declare refresh_token: string;
+
+
+    @Column({
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
+    })
+    declare activation_link: string;
 }

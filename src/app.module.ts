@@ -13,6 +13,7 @@ import { ShopModule } from './shop/shop.module';
 import { OrderModule } from './order/order.module';
 import { DonateModule } from './donate/donate.module';
 import { PaymentsModule } from './payments/payments.module';
+import { MeilModule } from './mail/meil.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { PaymentsModule } from './payments/payments.module';
       logging: false,
       // synchronize: true,
       autoLoadModels: true,
-      models: []
+      sync: { alter: true }     // force: bu tablellarni ochirib tashlaydi  alter: ishatish 
     }),
     AdminModule,
     AuthModule,
@@ -44,6 +45,7 @@ import { PaymentsModule } from './payments/payments.module';
     OrderModule,
     DonateModule,
     PaymentsModule,
+    MeilModule,
   ],
   controllers: [],
   providers: [],

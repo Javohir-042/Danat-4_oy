@@ -2,12 +2,15 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AuthGuard } from './common/guards/auth.guard';
+import cookieParser from 'cookie-parser';
+
 async function bootstrap() {
 
   const PORT = Number(process.env.PORT ?? 3000)
 
   const app = await NestFactory.create(AppModule);
+
+  app.use(cookieParser());
 
   app.setGlobalPrefix('api')
   app.useGlobalPipes(

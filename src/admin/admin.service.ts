@@ -35,18 +35,48 @@ export class AdminService {
     return new ResData<Admin>("Admin create successFully", 201, newAdmin)
   }
 
+  async findAdminByEmail(email: string) {
+    const admin = await this.adminModel.findOne({
+      where: { email },
+    });
+    return admin;
+  }
+
+  async activateAdmin(link: string) {
+    if (!link) {
+      throw new BadRequestException("Activation link not found");
+    }
+    const updateAdmin = await this.adminModel.update(
+      { is_active: true },
+      {
+        where: {
+          activation_link: link,
+          is_active: false,
+        },
+        returning: true,
+      }
+    )
+    if (!updateAdmin[1][0]) {
+      throw new NotFoundException("Admin already activated")
+    }
+    return {
+      message: "Admin activated successfully",
+      is_active: updateAdmin[1][0].is_active,
+    };
+  }
+
   async findAll(): Promise<ResData<Admin[]>> {
     const admin = await this.adminModel.findAll({ include: { all: true }, order: [['id', 'ASC']] });
 
     return new ResData('Admin successfully retrieved', 200, admin)
   }
 
-  async findOne(id: number): Promise<ResData<Admin>> {
+  async findOne(id: number) {
     const admin = await this.adminModel.findByPk(id)
     if (!admin) {
       throw new NotFoundException('Admin not found')
     }
-    return new ResData("Admin retrieved by id", 200, admin);
+    return admin;
   }
 
   async update(id: number, updateAdminDto: UpdateAdminDto): Promise<ResData<Admin>> {
